@@ -1,6 +1,6 @@
 REPO=https://github.com/JerryGreen/setup.sh
 RAW_REPO=https://raw.github.com/JerryGreen/setup.sh/master
-MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bash_profile, or into repository:\n### $REPO\n"
+MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bashrc, or into repository:\n### $REPO\n"
 
 # Initial Check
 
@@ -22,13 +22,13 @@ esac
 # Common Pre-Installation
 
 mkdir -p ~/.rc
-if [ ! -f ~/.bash_profile ]; then
-  echo "There's no '~/.bash_profile' file (how did that come up?), exiting..." >&2
+if [ ! -f ~/.bashrc ]; then
+  echo "There's no '~/.bashrc' file (how did that come up?), exiting..." >&2
   exit 1
 fi
 COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . ~/.rc/*'
-if [[ -z $(cat ~/.bash_profile | grep "$COMMAND") ]]; then
-  echo "$COMMAND" >>~/.bash_profile
+if [[ -z $(cat ~/.bashrc | grep "$COMMAND") ]]; then
+  echo "$COMMAND" >>~/.bashrc
 fi
 cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/common.sh) >~/.rc/common.sh
 
@@ -62,5 +62,5 @@ mkdir -p ~/.completions
 
 # EOF
 
-source ~/.bash_profile
+source ~/.bashrc
 echo "Setup complete!"
