@@ -7,3 +7,20 @@ alias projects="cd ~/projects"
 # Bash history to be a good size
 HISTSIZE=1000000
 HISTFILESIZE=1000000
+
+# Disable editing for git
+export GIT_MERGE_AUTOEDIT=no
+
+# TODO: probably remove functions
+function killport() {
+  kill -9 $(lsof -t -i:$1)
+}
+function check() {
+  while true; do
+    res=$($@)
+    printf "\033c"
+    echo "$res"
+    echo "(last updated: $(date +\"%T\"))"
+    sleep 5
+  done
+}
