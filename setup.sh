@@ -62,4 +62,5 @@ mkdir -p ~/.completions
 
 # EOF
 
+source ~/.bash_profile
 echo "Setup complete!"
