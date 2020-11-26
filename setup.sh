@@ -26,8 +26,8 @@ if [ ! -f ~/.bashrc ]; then
   echo "There's no '~/.bashrc' file (how did that come up?), exiting..." >&2
   exit 1
 fi
-COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . ~/.rc/*'
-if [[ -z $(cat ~/.bashrc | grep "$COMMAND") ]]; then
+COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . <(cat ~/.rc/*)'
+if [[ -z $(cat ~/.bashrc | grep -F "$COMMAND") ]]; then
   echo "$COMMAND" >>~/.bashrc
 fi
 cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/common.sh) >~/.rc/common.sh
