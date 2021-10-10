@@ -1,6 +1,5 @@
-# Fixes bug with history not filling up:
+# Fix History: so it filling up (How this even a bug?):
 export PROMPT_COMMAND='history -a'
 
-# Makes Cygwin create actual Windows symlinks with `ln -s` command, rather than making a copy (Cygwin, why this isn't default?):
-export CYGWIN=winsymlinks:nativestrict
+# Fix Symlinks: `ln -s` bash command to actually create symbolic links, rather than making a copy (Cygwin, why this isn't default?):
 export MSYS=winsymlinks:nativestrict
