@@ -1,6 +1,3 @@
-# My default aliases:
-alias projects="cd ~/projects"
-
 # Use completions (feel free to add bash completions there, this folder has no permission errors across all platforms):
 [[ -d ~/.completions && -n $(ls -A ~/.completions) ]] && . ~/.completions/*
 
@@ -8,11 +5,12 @@ alias projects="cd ~/projects"
 HISTSIZE=1000000
 HISTFILESIZE=1000000
 
-# Use default merge message when merging:
+# Use default merge message withoutt confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
-# TODO: probably remove functions?
+# Just a couple cool functions
 function killport() {
+  # usage: killport 3000
   kill -9 $(lsof -t -i:$1)
 }
 function check() {
