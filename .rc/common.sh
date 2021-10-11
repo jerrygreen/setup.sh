@@ -11,6 +11,9 @@ export HISTCONTROL=erasedups:ignorespace
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
+# Enable Ctrl+S for fwd-i-search (in addition to existing Ctrl+R bck-i-search):
+stty -ixon
+
 # Just a couple cool functions
 function killport() {
   # usage: killport 3000
