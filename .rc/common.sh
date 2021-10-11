@@ -2,10 +2,13 @@
 [[ -d ~/.completions && -n $(ls -A ~/.completions) ]] && . ~/.completions/*
 
 # Bash history to be a good size:
-HISTSIZE=1000000
-HISTFILESIZE=1000000
+HISTSIZE=65536
+HISTFILESIZE=65536
 
-# Use default merge message withoutt confirmation:
+# Ignore duplicate commands, ignore commands starting with a space:
+export HISTCONTROL=erasedups:ignorespace
+
+# Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
 # Just a couple cool functions
