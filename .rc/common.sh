@@ -6,7 +6,10 @@ HISTSIZE=65536
 HISTFILESIZE=65536
 
 # Ignore duplicate commands, ignore commands starting with a space:
-export HISTCONTROL=erasedups:ignorespace:ignoredups
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+export HISTCONTROL=erasedups:ignorespace:ignoredups # Same, but for pure Bash (not zsh)
 
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
