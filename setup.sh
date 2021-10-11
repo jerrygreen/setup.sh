@@ -1,6 +1,7 @@
 REPO=https://github.com/JerryGreen/setup.sh
 RAW_REPO=https://raw.github.com/JerryGreen/setup.sh/master
 MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bashrc, or into repository:\n### $REPO\n"
+set -e
 
 # Initial Check
 
@@ -22,17 +23,25 @@ esac
 # Common Pre-Installation
 
 mkdir -p ~/.rc
-if [ ! -f ~/.bashrc ]; then
-  echo "There's no '~/.bashrc' file (how did that come up?), exiting..." >&2
+if [ -f ~/.bashrc ]; then
+  RC_FILE=~/.bashrc
+elif [ -f ~/.zshrc ]; then
+  RC_FILE=~/.zshrc
+elif [ command -v zsh 2>/dev/null && echo $? ]; then
+  touch ~/.zshrc
+  RC_FILE=~/.zshrc
+elif [ command -v bash 2>/dev/null && echo $? ]; then
+  touch ~/.bashrc
+  RC_FILE=~/.bashrc
+else
+  echo "You don't have either zsh or bash (how did that come up?), exiting..." >&2
   exit 1
 fi
-COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . <(cat ~/.rc/*)'
-if [[ -z $(cat ~/.bashrc | grep -F "$COMMAND") ]]; then
-  echo "$COMMAND" >>~/.bashrc
-fi
+
 cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/common.sh) >~/.rc/common.sh
 
 # OS-specific Pre-Installation
+
 case "$OSTYPE" in
 linux-gnu*) ;;
 darwin*)
@@ -46,6 +55,10 @@ esac
 # Common Post-Installation
 
 mkdir -p ~/.completions
+COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . <(cat ~/.rc/*)'
+if [[ -z $(cat $RC_FILE | grep -F "$COMMAND") ]]; then
+  echo "$COMMAND" >>$RC_FILE
+fi
 
 # .netrc
 
@@ -62,5 +75,5 @@ mkdir -p ~/.completions
 
 # EOF
 
-source ~/.bashrc
+source $RC_FILE
 echo "Setup complete!"
