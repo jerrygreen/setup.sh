@@ -1,25 +1,29 @@
-# setup.sh - setup bash environment
+# [setup.sh - opinionated environment settings for Bash](https://github.com/jerrygreen/setup.sh)
 
-The idea is to have some shared `.bashrc` settings across systems, and also useful if I want to make a fresh OS install.
+The idea is to have some shared rc files across systems, easily updatable.
 
-I made it to support at least macos and windows. Hopefully it's somewhat close to work on linux too.
-
-## Requirements
-
-windows:
-
-- [Git, Git Bash](https://git-scm.com/downloads)
-
-macos:
-
-- none :)
-
-linux:
-
-- ???
-
-## Usage
+## Install / Usage
 
 ```bash
-curl -sL https://raw.github.com/JerryGreen/setup.sh/master/setup.sh | bash
+curl -sL https://x.jerrygreen.me/setup.sh | bash
 ```
+
+This will create [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/.rc) folder with opinionated environmental settings, which are applied automatically. It installs the most recent version, can be safely re-run as many times as you need.
+
+## Supports
+
+<table>
+<th>Windows</th>
+<th>Macos</th>
+<th>Linux</th>
+<tr align="center">
+<td colspan=1>✅ Yes</td>
+<td colspan=1>✅ Yes</td>
+<td colspan=1>❔</td>
+</tr>
+<tr align="center">
+<td><sup>*requires <a href="https://git-scm.com/downloads">Git / Git Bash</a></sup></td>
+<td></td>
+<td><sup>*should work, but not tested</sup></td>
+</tr>
+</table>
