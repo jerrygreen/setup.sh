@@ -9,7 +9,8 @@ HISTFILESIZE=65536
 export GIT_MERGE_AUTOEDIT=no
 
 # Enable Ctrl+S for fwd-i-search (in addition to existing Ctrl+R bck-i-search): https://stackoverflow.com/a/25391867/3720305
-[[ $- == *i* ]] && stty -ixon
+# [[ $- == *i* ]] && stty -ixon
+[[ -o interactive ]] && stty -ixon
 
 # Just a couple cool functions
 function killport() {
