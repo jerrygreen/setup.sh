@@ -8,7 +8,9 @@ The idea is to have some shared rc files across systems, easily updatable.
 curl -sL https://x.jerrygreen.me/setup.sh | bash
 ```
 
-This will create [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/.rc) folder with opinionated environmental settings, which are applied automatically. It installs the most recent version, can be safely re-run as many times as you need.
+This will create [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/.rc) folder with opinionated environmental settings, which are applied automatically.
+
+To update, - just run this script again. For that, you can quickly search your Bash history by typing <kbd>Ctrl+R</kbd> -> `setup.sh`, and this command will pop-up.
 
 ## Supports
 
