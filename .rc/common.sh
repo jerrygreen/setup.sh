@@ -5,9 +5,6 @@
 HISTSIZE=65536
 HISTFILESIZE=65536
 
-# Ignore duplicate commands, ignore commands starting with a space:
-export HISTCONTROL=erasedups:ignorespace:ignoredups
-
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
