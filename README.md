@@ -10,7 +10,9 @@ curl -sL https://x.jerrygreen.me/setup.sh | bash
 
 This will create [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/.rc) folder with opinionated environmental settings, which are applied automatically.
 
-To update, - just run this script again. For that, you can quickly search your Bash history by typing <kbd>Ctrl+R</kbd> -> `setup.sh`, and this command will pop-up.
+## Update
+
+To update, - just run this script again. This command can be quickly searched by typing <kbd>Ctrl+R</kbd> -> `setup.sh`, hit <kbd>Enter</kbd> to execute.
 
 ## Supports
 
