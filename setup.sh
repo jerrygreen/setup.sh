@@ -95,11 +95,12 @@ esac
 mkdir -p ~/.completions
 cd $TEMP_DIR && {
   source <(cat rc-once/*)
-  cd bin && {
-    rename '.sh' '' *.sh
-    cp -rf ./* ~/bin
-  }
+  # TODO: aliases!
+  # cd bin && {
+  #   # rename '.sh' '' *.sh
+  # }
 }
+mkdir -p ~/bin
 cp -rf $TEMP_DIR/bin/* ~/bin/
 COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . <(cat ~/.rc/*)'
 if [[ -z $(cat $RC_FILE | grep -F "$COMMAND") ]]; then

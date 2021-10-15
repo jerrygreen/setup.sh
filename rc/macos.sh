@@ -5,3 +5,9 @@ setopt HIST_IGNORE_SPACE    # Don't record an entry starting with a space.
 
 # Fix "Dock" menu: disable bouncing (which is annoying):
 defaults write com.apple.dock no-bouncing -bool TRUE
+
+# Fix git auto-completions:
+autoload -Uz compinit && compinit
+
+# Enable special syntax & colors for command prompt
+setopt PROMPT_SUBST

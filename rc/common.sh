@@ -1,22 +1,30 @@
-# Unify colored command prompt between platforms, showing: user@host path [(git branch)]
-PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
+# Unify command prompt between platforms, showing: user@host folder [branch]
+# export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`$__git_ps1`\[\033[0m\]\n$ '
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
+}
+COLOR_DEF='%f'
+COLOR_USR='%F{243}'
+COLOR_DIR='%F{42}'
+COLOR_GIT='%F{96}'
+NEWLINE=$'\n'
+PROMPT='${NEWLINE}${COLOR_USR}%n@%m ${COLOR_DIR}${PWD##*/} ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}$ '
 
 # Use completions (feel free to add bash completions there, this folder has no permission errors across all platforms):
 [[ -d ~/.completions && -n $(ls -A ~/.completions) ]] && . ~/.completions/*
 
 # Bash history to be a good size:
-HISTSIZE=65536
-HISTFILESIZE=65536
+export HISTSIZE=65536
+export HISTFILESIZE=65536
 
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
+# Make custom functions available in bash
+export PATH=$PATH:~/bin
+
 # Enable Ctrl+S for fwd-i-search (in addition to existing Ctrl+R bck-i-search): https://stackoverflow.com/a/25391867/3720305
 [[ $- == *i* ]] && stty -ixon
-# [[ -o interactive ]] && stty -ixon
-
-# Make custom functions available in bash
-export PATH=$PATH:~/bin/**
 
 # function check() {
 #   while true; do
