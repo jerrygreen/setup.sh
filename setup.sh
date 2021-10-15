@@ -1,22 +1,29 @@
 REPO=https://github.com/JerryGreen/setup.sh
 RAW_REPO=https://raw.github.com/JerryGreen/setup.sh/master
 MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bashrc, or into repository:\n### $REPO\n"
-set -e
 
 # Initial Check
+
+source ~/.rc/X_VERSION_SETUP.SH 2>/dev/null
+set -e
+if [ -z "$SETUP_SH_VERSION" ]; then
+  ACTION="Setting up"
+else
+  ACTION="Updating"
+fi
 
 case "$OSTYPE" in
 linux-gnu*)
   echo "Warning: Linux is not really supported! Feel free to adapt the script:"
   echo $REPO
   echo
-  echo "Setting up 'linux' bash environment..."
+  echo "$ACTION 'linux' bash environment..."
   ;;
 darwin*)
-  echo "Setting up 'macos' bash environment..."
+  echo "$ACTION 'macos' bash environment..."
   ;;
 msys*)
-  echo "Setting up 'windows' bash environment..."
+  echo "$ACTION 'windows' bash environment..."
   ;;
 esac
 
@@ -38,23 +45,62 @@ else
   exit 1
 fi
 
-cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/common.sh) >~/.rc/common.sh
+TEMP_DIR=$(mktemp -dt setup.sh-XXXXXX)
+git clone --quiet $REPO $TEMP_DIR >/dev/null
+SETUP_SH_RECENT_VERSION=$(cd $TEMP_DIR && git rev-parse HEAD)
+TIMESTAMP=$(date +%s)
+if [ -z "${SETUP_SH_VERSION}" ]; then
+  SETUP_SH_VERSION=$SETUP_SH_RECENT_VERSION
+  SETUP_SH_UPDATED_AT=$TIMESTAMP
+  SETUP_SH_CHECKED_AT=$TIMESTAMP
+  SETUP_SH_NOTIFED_AT=$TIMESTAMP
+  SETUP_SH_UPD_AVAILB=0
+  END_MESSAGE="[setup.sh] Setup complete!"
+else
+  UPDATE_COUNT=$(cd $TEMP_DIR && git rev-list --branches --count HEAD..$SETUP_SH_VERSION 2>/dev/null) || true
+  if [[ -n "${UPDATE_COUNT:=?}" && "$UPDATE_COUNT" != "0" ]]; then
+    SETUP_SH_UPDATED_AT=$TIMESTAMP
+    SETUP_SH_UPD_AVAILB=$TIMESTAMP
+    END_MESSAGE="The recent version had \"${UPDATE_COUNT}\" new commits.\nNow updated!"
+  else
+    echo "Nothing to update!"
+    exit 0
+  fi
+fi
+echo -e "# Automatically generated file, do not change\n
+SETUP_SH_VERSION=$SETUP_SH_RECENT_VERSION
+SETUP_SH_UPDATED_AT=$TIMESTAMP
+SETUP_SH_CHECKED_AT=$TIMESTAMP
+SETUP_SH_NOTIFED_AT=$TIMESTAMP
+SETUP_SH_UPD_AVAILB=0
+" >~/.rc/X_VERSION_SETUP.SH
+cat <(echo -e $MSG) <(cd $TEMP_DIR && cat rc/common.sh) >~/.rc/common.sh
 
 # OS-specific Pre-Installation
 
 case "$OSTYPE" in
-linux-gnu*) ;;
+linux-gnu*)
+  cat <(echo -e $MSG) <(cd $TEMP_DIR && cat rc/linux.sh) >~/.rc/linux.sh
+  ;;
 darwin*)
-  cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/macos.sh) >~/.rc/macos.sh
+  cat <(echo -e $MSG) <(cd $TEMP_DIR && cat rc/macos.sh) >~/.rc/macos.sh
   ;;
 msys*)
-  cat <(echo -e $MSG) <(curl -sL $RAW_REPO/.rc/windows.sh) >~/.rc/windows.sh
+  cat <(echo -e $MSG) <(cd $TEMP_DIR && cat rc/windows.sh) >~/.rc/windows.sh
   ;;
 esac
 
 # Common Post-Installation
 
 mkdir -p ~/.completions
+cd $TEMP_DIR && {
+  source <(cat rc-once/*)
+  cd bin && {
+    rename '.sh' '' *.sh
+    cp -rf ./* ~/bin
+  }
+}
+cp -rf $TEMP_DIR/bin/* ~/bin/
 COMMAND='[[ -d ~/.rc && -n $(ls -A ~/.rc) ]] && . <(cat ~/.rc/*)'
 if [[ -z $(cat $RC_FILE | grep -F "$COMMAND") ]]; then
   echo "$COMMAND" >>$RC_FILE
@@ -75,5 +121,6 @@ fi
 
 # EOF
 
-source $RC_FILE
-echo "Setup complete!"
+rm -rf $TEMP_DIR
+source $RC_FILE --no-check
+echo -e $END_MESSAGE

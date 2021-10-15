@@ -8,11 +8,16 @@ The idea is to have some shared rc files across systems, easily updatable.
 curl -sL https://x.jerrygreen.me/setup.sh | bash
 ```
 
-This will create [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/.rc) folder with opinionated environmental settings, which are applied automatically.
+This will create:
+
+- [`~/bin](https://github.com/jerrygreen/setup.sh/tree/master/bin) folder, with some useful functions accessible as commands in bash
+- [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/rc) folder, with files for your OS, which are applied automatically for every bash login.
+
+Note: [`rc-once`](https://github.com/jerrygreen/setup.sh/tree/master/.rc-once) folder isn't copied to your system: those settings are set only during installation!
 
 ## Update
 
-To update, - just run this script again. This command can be quickly searched by typing <kbd>Ctrl+R</kbd> -> `setup.sh`, hit <kbd>Enter</kbd> to execute.
+To update, - just run this script again. This command can be quickly searched by typing <kbd>Ctrl+R</kbd> -> `setup.sh`.
 
 ## Supports
 
@@ -21,9 +26,9 @@ To update, - just run this script again. This command can be quickly searched by
 <th>Macos</th>
 <th>Linux</th>
 <tr align="center">
-<td colspan=1>✅ Yes</td>
-<td colspan=1>✅ Yes</td>
-<td colspan=1>❔</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+<td>❔</td>
 </tr>
 <tr align="center">
 <td><sup>*requires <a href="https://git-scm.com/downloads">Git / Git Bash</a></sup></td>
