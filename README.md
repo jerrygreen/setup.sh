@@ -10,7 +10,7 @@ curl -sL https://x.jerrygreen.me/setup.sh | bash
 
 This will create:
 
-- [`~/bin](https://github.com/jerrygreen/setup.sh/tree/master/bin) folder, with some useful functions accessible as commands in bash
+- [`~/bin`](https://github.com/jerrygreen/setup.sh/tree/master/bin) folder, with some useful functions accessible as commands in bash
 - [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/rc) folder, with files for your OS, which are applied automatically for every bash login.
 
 Note: [`rc-once`](https://github.com/jerrygreen/setup.sh/tree/master/.rc-once) folder isn't copied to your system: those settings are set only during installation!
@@ -19,7 +19,7 @@ Note: [`rc-once`](https://github.com/jerrygreen/setup.sh/tree/master/.rc-once) f
 
 To update, - just run this script again. This command can be quickly searched by typing <kbd>Ctrl+R</kbd> -> `setup.sh`.
 
-## Supports
+## Supported Platforms
 
 <table>
 <th>Windows</th>
@@ -36,3 +36,9 @@ To update, - just run this script again. This command can be quickly searched by
 <td><sup>*should work, but not tested</sup></td>
 </tr>
 </table>
+
+| Windows              | Macos  | Linux |
+| -------------------- | ------ | ----- |
+| ✅ Yes<sup>[1]</sup> | ✅ Yes | ❔    |
+
+[1]: Windows requires [Git & Git Bash](https://git-scm.com/downloads)

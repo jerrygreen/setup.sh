@@ -9,5 +9,14 @@ defaults write com.apple.dock no-bouncing -bool TRUE
 # Fix git auto-completions:
 autoload -Uz compinit && compinit
 
-# Enable special syntax & colors for command prompt
+# Setup custom command prompt: user@host current_folder (branch)
+print_git_branch() {
+  git branch 2>/dev/null | sed -n -e 's/^\* \(.*\)/(\1)/p'
+}
+COLOR_DEF='%f'
+COLOR_USR='%F{243}'
+COLOR_DIR='%F{42}'
+COLOR_GIT='%F{96}'
+NEWLINE=$'\n'
+PROMPT='${NEWLINE}${COLOR_USR}%n@%m ${COLOR_DIR}${PWD##*/} ${COLOR_GIT}$(print_git_branch)${COLOR_DEF}${NEWLINE}$ '
 setopt PROMPT_SUBST
