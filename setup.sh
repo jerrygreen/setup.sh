@@ -1,7 +1,5 @@
 REPO=https://github.com/JerryGreen/setup.sh
 RAW_REPO=https://raw.github.com/JerryGreen/setup.sh/master
-VERSION_SHORT="0.1"
-VERSION_PREV="e7cf42d5e667b3171be876c8b6c35ffd930cb55f"
 MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bashrc, or into repository:\n### $REPO\n"
 
 # Initial Check
@@ -49,7 +47,9 @@ fi
 
 TEMP_DIR=$(mktemp -dt setup.sh-XXXXXX)
 git clone --quiet $REPO $TEMP_DIR >/dev/null
-VERSION_PATCH=$(cd $TEMP_DIR && git rev-list --branches --count $VER_PREV..HEAD)
+VERSION_SHORT="$(cd $TEMP_DIR && cat VERSION)"
+VERSION_PREV=$(cd $TEMP_DIR && git log -1 --format="%H" VERSION)
+VERSION_PATCH=$(cd $TEMP_DIR && git rev-list --branches --count $VERSION_PREV..HEAD)
 VERSION_FULL=$VERSION_SHORT.$VERSION_PATCH
 SETUP_SH_RECENT_VERSION=$(cd $TEMP_DIR && git rev-parse HEAD)
 TIMESTAMP=$(date +%s)
