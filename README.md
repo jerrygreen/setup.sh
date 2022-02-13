@@ -21,22 +21,6 @@ To update, - just run this script again. This command can be quickly searched by
 
 ## Supported Platforms
 
-<table>
-<th>Windows</th>
-<th>Macos</th>
-<th>Linux</th>
-<tr align="center">
-<td>✅ Yes</td>
-<td>✅ Yes</td>
-<td>❔</td>
-</tr>
-<tr align="center">
-<td><sup>*requires <a href="https://git-scm.com/downloads">Git / Git Bash</a></sup></td>
-<td></td>
-<td><sup>*should work, but not tested</sup></td>
-</tr>
-</table>
-
 | Windows              | Macos  | Linux |
 | -------------------- | ------ | ----- |
 | ✅ Yes<sup>[1]</sup> | ✅ Yes | ❔    |
