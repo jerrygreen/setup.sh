@@ -1,6 +1,6 @@
 # [setup.sh - opinionated environment settings for Bash](https://github.com/jerrygreen/setup.sh)
 
-The idea is to have some shared rc files across systems, easily updatable.
+The idea is to have some shared rc files across different devices and systems, easily updatable.
 
 ## Install / Usage
 
