@@ -1,5 +1,7 @@
 REPO=https://github.com/JerryGreen/setup.sh
 RAW_REPO=https://raw.github.com/JerryGreen/setup.sh/master
+VERSION_SHORT="0.1"
+VERSION_PREV="e7cf42d5e667b3171be876c8b6c35ffd930cb55f"
 MSG="### Automatically generated file. Instead of editing, add changes to either ~/.bashrc, or into repository:\n### $REPO\n"
 
 # Initial Check
@@ -14,16 +16,16 @@ fi
 
 case "$OSTYPE" in
 linux-gnu*)
-  echo "Warning: Linux is not really supported! Feel free to adapt the script:"
+  echo "[setup.sh] Warning: Linux is not really supported! Feel free to adapt the script:"
   echo $REPO
   echo
-  echo "$ACTION 'linux' bash environment..."
+  echo "[setup.sh] $ACTION 'linux' bash environment..."
   ;;
 darwin*)
-  echo "$ACTION 'macos' bash environment..."
+  echo "[setup.sh] $ACTION 'macos' bash environment..."
   ;;
 msys*)
-  echo "$ACTION 'windows' bash environment..."
+  echo "[setup.sh] $ACTION 'windows' bash environment..."
   ;;
 esac
 
@@ -41,12 +43,14 @@ elif [ command -v bash 2>/dev/null && echo $? ]; then
   touch ~/.bashrc
   RC_FILE=~/.bashrc
 else
-  echo "You don't have either zsh or bash (how did that come up?), exiting..." >&2
+  echo "[setup.sh] Error: Neither zsh or bash were found (how did that come up?), exiting..." >&2
   exit 1
 fi
 
 TEMP_DIR=$(mktemp -dt setup.sh-XXXXXX)
 git clone --quiet $REPO $TEMP_DIR >/dev/null
+VERSION_PATCH=$(cd $TEMP_DIR && git rev-list --branches --count $VER_PREV..HEAD)
+VERSION_FULL=$VERSION_SHORT.$VERSION_PATCH
 SETUP_SH_RECENT_VERSION=$(cd $TEMP_DIR && git rev-parse HEAD)
 TIMESTAMP=$(date +%s)
 if [ -z "${SETUP_SH_VERSION}" ]; then
@@ -55,15 +59,15 @@ if [ -z "${SETUP_SH_VERSION}" ]; then
   SETUP_SH_CHECKED_AT=$TIMESTAMP
   SETUP_SH_NOTIFED_AT=$TIMESTAMP
   SETUP_SH_UPD_AVAILB=0
-  END_MESSAGE="[setup.sh] Setup complete!"
+  END_MESSAGE="Setup complete! (version $VERSION_FULL)"
 else
   UPDATE_COUNT=$(cd $TEMP_DIR && git rev-list --branches --count HEAD..$SETUP_SH_VERSION 2>/dev/null) || true
   if [[ -n "${UPDATE_COUNT:=?}" && "$UPDATE_COUNT" != "0" ]]; then
     SETUP_SH_UPDATED_AT=$TIMESTAMP
     SETUP_SH_UPD_AVAILB=$TIMESTAMP
-    END_MESSAGE="The recent version had \"${UPDATE_COUNT}\" new commits.\nNow updated!"
+    END_MESSAGE="The recent version had \"${UPDATE_COUNT}\" new commits.\nNow updated! (version $VERSION_FULL)"
   else
-    echo "Nothing to update!"
+    echo "[setup.sh] Nothing to update! (version $VERSION_FULL)"
     exit 0
   fi
 fi
@@ -124,4 +128,4 @@ fi
 
 rm -rf $TEMP_DIR
 source $RC_FILE --no-check
-echo -e $END_MESSAGE
+echo -e "[setup.sh] $END_MESSAGE"
