@@ -5,7 +5,7 @@ The idea is to have some shared rc files across different devices and systems, e
 ## Install / Usage
 
 ```bash
-curl -sL https://x.jerrygreen.me/setup.sh | bash
+curl -sL https://x.jerrygreen.vercel.app/setup.sh | bash
 ```
 
 This will create:
