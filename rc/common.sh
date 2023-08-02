@@ -14,6 +14,9 @@ export HISTCONTROL=erasedups:ignorespace:ignoredups
 # Fix history for VSCode: do not lose history during crashes (how this even a bug?): https://github.com/microsoft/vscode/issues/85831
 export PROMPT_COMMAND='history -a'
 
+# Append to the history instead of overwriting (good for multiple connections)
+shopt -s histappend
+
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
