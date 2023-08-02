@@ -8,6 +8,12 @@ export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[33m\]\w\[
 export HISTSIZE=65536
 export HISTFILESIZE=65536
 
+# Fix shell: disable writing duplicate commands and commands starting with space, into history:
+export HISTCONTROL=erasedups:ignorespace:ignoredups
+
+# Fix history for VSCode: do not lose history during crashes (how this even a bug?): https://github.com/microsoft/vscode/issues/85831
+export PROMPT_COMMAND='history -a'
+
 # Use default merge message without confirmation:
 export GIT_MERGE_AUTOEDIT=no
 
