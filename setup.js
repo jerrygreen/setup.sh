@@ -9,8 +9,8 @@ const configCmd = 'source ~/.rc/config.nu'
 const RC_FILES = ['rc/config.nu', 'rc/env.nu']
 const RCO_FILES = ['rc-once/git.sh', 'rc-once/npm&yarn.sh']
 const HOME = os.homedir()
-const envPath = execSync(`nu -c $nu.env-path`).toString().trim()
-const configPath = execSync(`nu -c $nu.config-path`).toString().trim()
+const envPath = execSync(`nu -c '$nu.env-path'`).toString().trim()
+const configPath = execSync(`nu -c '$nu.config-path'`).toString().trim()
 const env = fs.readFileSync(envPath).toString()
 const config = fs.readFileSync(configPath).toString()
 
