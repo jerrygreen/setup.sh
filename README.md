@@ -19,7 +19,7 @@ curl -sL https://raw.github.com/jerrygreen/setup.sh/master/setup.js | node
 This will create:
 
 <!-- - [`~/bin`](https://github.com/jerrygreen/setup.sh/tree/master/bin) folder, with some useful functions accessible as commands in bash -->
-- [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/rc) folder, with files for your OS, which are applied automatically for every nushell login.
+- [`~/.rc`](https://github.com/jerrygreen/setup.sh/tree/master/rc) folder, which are applied automatically for every nushell login.
 
 <!-- Note: [`rc-once`](https://github.com/jerrygreen/setup.sh/tree/master/.rc-once) folder isn't copied to your system: those settings are set only during installation! -->
 
@@ -31,6 +31,6 @@ To update, - just run this script again. This command can be quickly searched by
 
 | Windows              | Macos  | Linux |
 | -------------------- | ------ | ----- |
-| ✅ Yes<sup>[1]</sup> | ✅ Yes | ❔    |
+| ✅ Yes<sup>[1]</sup> | ❌ Not yet | ❔    |
 
 [1]: Windows requires [Git & Git Bash](https://git-scm.com/downloads)
