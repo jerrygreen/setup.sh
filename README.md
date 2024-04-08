@@ -31,6 +31,6 @@ To update, - just run this script again. This command can be quickly searched by
 
 | Windows              | Macos  | Linux |
 | -------------------- | ------ | ----- |
-| ✅ Yes<sup>[1]</sup> | ❌ Not yet | ❔    |
+| ✅ Yes<sup>[1]</sup> | ✅     | ❔    |
 
 [1]: Windows requires [Git & Git Bash](https://git-scm.com/downloads)
