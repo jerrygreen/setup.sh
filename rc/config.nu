@@ -18,3 +18,5 @@ alias cdi = __zoxide_zi
 
 # Fix "Dock" menu: disable bouncing (which is annoying):
 # defaults write com.apple.dock no-bouncing -bool TRUE
+
+alias x = npx
