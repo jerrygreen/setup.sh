@@ -1,4 +1,4 @@
-# my typicall zoxide configuration: use "cd" without arguments for interactive change directory
+# My typical Zoxide configuration: use "cd" without arguments for interactive change directory
 source ~/.zoxide.nu
 def --env __zoxide_z2 [...rest:string] {
   if (($rest | length) == 0) {
@@ -16,7 +16,8 @@ def --env __zoxide_z2 [...rest:string] {
 alias cd = __zoxide_z2
 alias cdi = __zoxide_zi
 
-# Fix "Dock" menu: disable bouncing (which is annoying):
-# defaults write com.apple.dock no-bouncing -bool TRUE
+# More about history isolation in nushell: https://github.com/nushell/nushell/issues/10104
+$env.config.history.isolation = true
 
+# Other aliases
 alias x = npx
