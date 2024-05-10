@@ -6,3 +6,9 @@ $env.EDITOR = "code -w $*"
 
 # Fix symlinks: `ln -s` bash command to actually create symbolic links, rather than making a copy (Cygwin, why this isn't default?):
 $env.MSYS = winsymlinks:nativestrict
+
+# More about history isolation in nushell: https://github.com/nushell/nushell/issues/10104
+$env.config.history.isolation = true
+
+# How that even broken on macos, nushell? (Monterey 2.7.4)
+$env.PATH = ($env.PATH | prepend '/usr/local/bin')

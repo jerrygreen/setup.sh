@@ -16,8 +16,5 @@ def --env __zoxide_z2 [...rest:string] {
 alias cd = __zoxide_z2
 alias cdi = __zoxide_zi
 
-# More about history isolation in nushell: https://github.com/nushell/nushell/issues/10104
-$env.config.history.isolation = true
-
 # Other aliases
 alias x = npx
