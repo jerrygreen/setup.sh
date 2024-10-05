@@ -1,5 +1,5 @@
 # My typical Zoxide configuration: use "cd" without arguments for interactive change directory
-source ~/.zoxide.nu
+source ($nu.default-config-dir | path join 'zoxide.nu')
 def --env __zoxide_z2 [...rest:string] {
   if (($rest | length) == 0) {
     __zoxide_zi

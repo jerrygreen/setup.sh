@@ -1,4 +1,4 @@
-# setup.sh - opinionated shell settings by Jerry Green
+# setup.sh - opinionated shell settings by jerrygreen
 
 The idea is to have some shared rc files across different devices and systems, easily updatable.
 Made specifically to cover my issues with the environment. Might not fit for you.
