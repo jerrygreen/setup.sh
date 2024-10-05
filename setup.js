@@ -19,7 +19,20 @@ for (let f of fs.readdirSync(path.join(HOME, '.rc'))) {
 	fs.rmSync(path.join(HOME, '.rc', f))
 }
 
+execSync('zoxide init nushell | save -f ~/.zoxide.nu')
+
 let promises = []
+for (let f of RCO_FILES) {
+	const file = path.join(HOME, '.' + f)
+	const url = new URL(f, F_URL).href
+	promises.push(
+		fetch(url)
+			.then((r) => r.text())
+			.then((content) =>
+				fs.writeFileSync(file, content, { encoding: 'utf-8', flag: 'w' })
+			)
+	)
+}
 for (let f of RC_FILES) {
 	const file = path.join(HOME, '.' + f)
 	const url = new URL(f, F_URL).href
