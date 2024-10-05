@@ -6,11 +6,12 @@ const path = require('node:path')
 const F_URL = 'https://raw.githubusercontent.com/JerryGreen/setup.sh/master/'
 const envCmd = 'source ~/.rc/env.nu'
 const configCmd = 'source ~/.rc/config.nu'
+const NU_PATH = execSync('which nu').toString().trim()
 const RC_FILES = ['rc/config.nu', 'rc/env.nu']
 const RCO_FILES = ['rc-once/git.sh', 'rc-once/npm&yarn.sh']
 const HOME = os.homedir()
-const envPath = execSync('/usr/local/bin/nu -c "echo \\$nu.env-path"').toString().trim()
-const configPath = execSync('/usr/local/bin/nu -c "echo \\$nu.config-path"').toString().trim()
+const envPath = execSync(`${configCmd} -c "echo \\$nu.env-path"`).toString().trim()
+const configPath = execSync(`${configCmd} -c "echo \\$nu.config-path"`).toString().trim()
 const env = fs.readFileSync(envPath).toString()
 const config = fs.readFileSync(configPath).toString()
 
