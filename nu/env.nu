@@ -11,4 +11,4 @@ $env.MSYS = winsymlinks:nativestrict
 $env.config.history.isolation = true
 
 # How that even broken on macos, nushell? (Monterey 2.7.4)
-$env.PATH = ($env.PATH | prepend '/usr/local/bin')
+$env.Path = ($env.Path | prepend '/usr/local/bin')
