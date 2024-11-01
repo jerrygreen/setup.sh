@@ -16,8 +16,8 @@ const RC_FILES = ['nu/env.nu', 'nu/config.nu']
 const RCO_FILES = ['rc/git.sh', 'rc/npm&yarn.sh']
 const HOME = os.homedir()
 
-const CMD = `${S}$nu.default-config-dir | path join 'rc.nu'`
-const RC_FILE = execSync(`${NU_PATH} -c "${CMD}"`).toString().trim()
+const CMD = `$nu.default-config-dir | path join 'rc.nu'`
+const RC_FILE = execSync(`${NU_PATH} -c "${S}${CMD}"`).toString().trim()
 const ENV_PATH = execSync(`${NU_PATH} -c "${S}$nu.env-path"`).toString().trim()
 const CONF_PATH = execSync(`${NU_PATH} -c "${S}$nu.config-path"`).toString().trim()
 
@@ -63,6 +63,8 @@ if (!config.includes(`source (${CMD})`))
 	fs.appendFileSync(CONF_PATH, '\n' + 'source (' + CMD + ')\n')
 
 Promise.all(promises).then((data) => {
-	fs.writeFileSync(RC_FILE, data.join('\n'), { encoding: 'utf-8', flag: 'w' })
+	const content = 'try {\n\n' + data.join('\n') + '\n}\n'
+	fs.writeFileSync(RC_FILE, content, { encoding: 'utf-8', flag: 'w' })
+	execSync(`${NU_PATH} -c "source (${S}${CMD})"`)
 	process.exit()
 })
