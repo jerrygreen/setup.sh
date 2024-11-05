@@ -4,16 +4,15 @@ const os = require('node:os')
 const path = require('node:path')
 
 const F_URL = 'https://raw.githubusercontent.com/jerrygreen/setup.sh/master/'
-const envRc = '~/.rc/env.nu'
-const configRc = '~/.rc/config.nu'
 const S = os.version().toLowerCase().includes('windows') ? '' : '\\'
 const NU_PATH = execSync('which nu')
 	.toString()
 	.trim()
 	.replace('/cygdrive', '')
 	.replace('/c/', 'C:/')
-const RC_FILES = ['nu/env.nu', 'nu/config.nu']
-const RCO_FILES = ['rc/git.sh', 'rc/npm&yarn.sh']
+const CONF_FILES = ['nu/env.nu', 'nu/config.nu']
+// const RC_FILES = ['rc/aliases.nu']
+const RCO_FILES = ['rco/git.sh', 'rco/npm&yarn.sh']
 const HOME = os.homedir()
 
 const CMD = `$nu.default-config-dir | path join 'rc.nu'`
@@ -48,23 +47,45 @@ if (!fzfPath) {
 	process.exit(1)
 }
 
-let promises = []
-for (let f of RCO_FILES) {
+let promises1 = []
+let promises2 = []
+let promises3 = []
+for (let f of CONF_FILES) {
 	const url = new URL(f, F_URL).href
-	promises.push(fetch(url).then((r) => r.text()))
+	promises1.push(fetch(url).then((r) => r.text()))
 }
 
-for (let f of RC_FILES) {
+// for (let f of RC_FILES) {
+// 	const url = new URL(f, F_URL).href
+// 	promises2.push(fetch(url).then((r) => r.text()))
+// }
+
+for (let f of RCO_FILES) {
 	const url = new URL(f, F_URL).href
-	promises.push(fetch(url).then((r) => r.text()))
+	promises3.push(fetch(url).then((r) => r.text()))
 }
 
 if (!config.includes(`source (${CMD})`))
 	fs.appendFileSync(CONF_PATH, '\n' + 'source (' + CMD + ')\n')
 
-Promise.all(promises).then((data) => {
-	const content = 'try {\n\n' + data.join('\n') + '\n}\n'
-	fs.writeFileSync(RC_FILE, content, { encoding: 'utf-8', flag: 'w' })
-	execSync(`${NU_PATH} -c "source (${S}${CMD})"`)
+Promise.all([
+	Promise.all(promises1).then((data) => {
+		const content = 'try {\n\n' + data.join('\n') + '\n}\n'
+		fs.writeFileSync(RC_FILE, content, { encoding: 'utf-8', flag: 'w' })
+		execSync(`${NU_PATH} -c "source (${S}${CMD})"`)
+	}),
+	Promise.all(promises3).then((data) => {
+		let cmd = data
+			.join('\n')
+			.replaceAll(/#+[^#]+?\n/g, '')
+			.replaceAll('\n', ';')
+			.replaceAll(/;+/g, '; ')
+			.trim()
+			.split('; ')
+		for (i = 0; i < cmd.length; i++) {
+			execSync(cmd[i], { stdio: 'inherit' })
+		}
+	}),
+]).then(() => {
 	process.exit()
 })

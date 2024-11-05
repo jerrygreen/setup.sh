@@ -18,3 +18,5 @@ alias cdi = __zoxide_zi
 
 # Other aliases
 alias x = npx
+alias re = nixos-rebuild switch
+alias gt = git
