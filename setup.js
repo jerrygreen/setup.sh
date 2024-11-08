@@ -70,20 +70,20 @@ if (!config.includes(`source (${CMD})`))
 
 Promise.all([
 	Promise.all(promises1).then((data) => {
-		const content = 'try {\n\n' + data.join('\n') + '\n}\n'
+		const content = data.join('\n')
 		fs.writeFileSync(RC_FILE, content, { encoding: 'utf-8', flag: 'w' })
 		execSync(`${NU_PATH} -c "source (${S}${CMD})"`)
 	}),
 	Promise.all(promises3).then((data) => {
-		let cmd = data
+		let cmds = data
 			.join('\n')
 			.replaceAll(/#+[^#]+?\n/g, '')
 			.replaceAll('\n', ';')
 			.replaceAll(/;+/g, '; ')
 			.trim()
 			.split('; ')
-		for (i = 0; i < cmd.length; i++) {
-			execSync(cmd[i], { stdio: 'inherit' })
+		for (i = 0; i < cmds.length; i++) {
+			execSync(cmds[i].trim().replaceAll(';', ''), { stdio: 'inherit' })
 		}
 	}),
 ]).then(() => {
