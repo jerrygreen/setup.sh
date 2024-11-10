@@ -12,7 +12,7 @@ const NU_PATH = execSync('which nu')
 	.replace('/c/', 'C:/')
 const CONF_FILES = ['nu/env.nu', 'nu/config.nu']
 // const RC_FILES = ['rc/aliases.nu']
-const RCO_FILES = ['rco/git.sh', 'rco/npm&yarn.sh']
+const RCO_FILES = ['rco/git.sh', 'rco/npm.sh']
 const HOME = os.homedir()
 
 const CMD = `$nu.default-config-dir | path join 'rc.nu'`
