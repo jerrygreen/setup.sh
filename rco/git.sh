@@ -2,7 +2,8 @@
 git config --global push.followTags true
 
 # Forever solve the warning "LF will be replaced by CRLF": https://stackoverflow.com/a/5834094/3720305
-git config --global core.autocrlf true
+git config --global core.autocrlf input
+git config --global core.eol lf
 
 # Automatically scroll status if needed (like git log)
 git config --global pager.status true
