@@ -15,8 +15,18 @@ def --env __zoxide_z2 [...rest:string] {
 }
 alias cd = __zoxide_z2
 alias cdi = __zoxide_zi
-
-# Other aliases
 alias x = npx
 alias re = nixos-rebuild switch
 alias gt = git
+
+def killport [port: int] {
+    let command = $"lsof -i :($port)"
+    let process_info = (^sh -c $command | grep LISTEN | awk '{print $2}')
+
+    if ($process_info | is-empty) {
+        echo $"No process found running on port ($port)"
+    } else {
+        echo $"Killing process running on port ($port): ($process_info)"
+        kill -9 $process_info
+    }
+}
