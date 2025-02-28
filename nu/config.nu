@@ -26,7 +26,8 @@ def killport [port: int] {
     if ($process_info | is-empty) {
         echo $"No process found running on port ($port)"
     } else {
-        echo $"Killing process running on port ($port): ($process_info)"
-        kill -9 $process_info
+        let pid = ($process_info | into int)
+        echo $"Killing process running on port ($port): ($pid)"
+        kill -9 $pid
     }
 }
