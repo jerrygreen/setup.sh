@@ -12,3 +12,6 @@ $env.config.history.isolation = true
 
 # How that even broken on macos, nushell? (Monterey 2.7.4)
 # $env.Path = ($env.Path | prepend '/usr/local/bin')
+
+# Remove the timestamp that only breaks copy-pasting
+$env.PROMPT_COMMAND_RIGHT = ""
