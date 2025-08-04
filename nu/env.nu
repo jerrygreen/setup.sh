@@ -15,4 +15,4 @@ $env.config.history.isolation = true
 
 # Remove the timestamp that only breaks copy-pasting
 $env.PROMPT_COMMAND_RIGHT = ""
-$env.config.render_right_prompt = false
+$env.config.render_right_prompt_on_last_line = false
