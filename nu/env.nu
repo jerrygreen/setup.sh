@@ -19,6 +19,6 @@ $env.PROMPT_COMMAND_RIGHT = ""
 $env.config.render_right_prompt_on_last_line = false
 
 # Auto-completions
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+#$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+#mkdir ~/.cache/carapace
+#carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
