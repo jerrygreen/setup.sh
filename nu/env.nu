@@ -9,6 +9,7 @@ $env.MSYS = "winsymlinks:nativestrict"
 
 # More about history isolation in nushell: https://github.com/nushell/nushell/issues/10104
 $env.config.history.isolation = true
+$env.config.history.file_format = "sqlite"
 
 # How that even broken on macos, nushell? (Monterey 2.7.4)
 # $env.Path = ($env.Path | prepend '/usr/local/bin')
