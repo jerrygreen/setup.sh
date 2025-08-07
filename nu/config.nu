@@ -33,4 +33,4 @@ def killport [port: int] {
 }
 
 # Auto-Completions
-source ~/.cache/carapace/init.nu
+try { source ~/.cache/carapace/init.nu }
