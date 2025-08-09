@@ -31,6 +31,3 @@ def killport [port: int] {
         kill -9 $pid
     }
 }
-
-# Auto-Completions
-source ~/.cache/carapace/init.nu
