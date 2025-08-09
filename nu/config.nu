@@ -13,8 +13,8 @@
 #    cd $path
 #  }
 #}
-alias cd = __zoxide_z2
-alias cdi = __zoxide_zi
+#alias cd = __zoxide_z2
+#alias cdi = __zoxide_zi
 alias x = npx
 alias re = nixos-rebuild switch
 alias gt = git
