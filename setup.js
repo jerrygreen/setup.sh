@@ -10,12 +10,14 @@ const NU_PATH = execSync('which nu')
 	.trim()
 	.replace('/cygdrive', '')
 	.replace('/c/', 'C:/')
+const HOME_FILES = ['.bunfig.toml']
 const CONF_FILES = ['nu/env.nu', 'nu/config.nu']
 // const RC_FILES = ['rc/aliases.nu']
 const RCO_FILES = ['rco/git.sh', 'rco/npm.sh']
 const HOME = os.homedir()
 
 const CMD = `$nu.default-config-dir | path join 'rc.nu'`
+const HOME = execSync(`${NU_PATH} -c "${S}$nu.HOME"`).toString().trim()
 const RC_FILE = execSync(`${NU_PATH} -c "${S}${CMD}"`).toString().trim()
 const ENV_PATH = execSync(`${NU_PATH} -c "${S}$nu.env-path"`).toString().trim()
 const CONF_PATH = execSync(`${NU_PATH} -c "${S}$nu.config-path"`).toString().trim()
@@ -47,9 +49,15 @@ if (!fzfPath) {
 	process.exit(1)
 }
 
+let promises0 = []
 let promises1 = []
 let promises2 = []
 let promises3 = []
+for (let f of HOME_FILES) {
+	const url = new URL(f, F_URL).href
+	promises0.push(fetch(url).then((r) => r.text()))
+}
+
 for (let f of CONF_FILES) {
 	const url = new URL(f, F_URL).href
 	promises1.push(fetch(url).then((r) => r.text()))
@@ -69,6 +77,11 @@ if (!config.includes(`source (${CMD})`))
 	fs.appendFileSync(CONF_PATH, '\n' + 'source (' + CMD + ')\n')
 
 Promise.all([
+	Promise.all(promises0).then((data) => {
+		for (let i = 0; i < HOME_FILES.length; i++) {
+			fs.writeFileSync(HOME + '/' +  HOME_FILES[i], data[i], { encoding: 'utf-8', flag: 'w' })
+		}
+	}),
 	Promise.all(promises1).then((data) => {
 		const content = data.join('\n')
 		fs.writeFileSync(RC_FILE, content, { encoding: 'utf-8', flag: 'w' })
