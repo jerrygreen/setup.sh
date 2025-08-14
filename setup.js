@@ -14,10 +14,10 @@ const HOME_FILES = ['.bunfig.toml']
 const CONF_FILES = ['nu/env.nu', 'nu/config.nu']
 // const RC_FILES = ['rc/aliases.nu']
 const RCO_FILES = ['rco/git.sh', 'rco/npm.sh']
-// const HOME = os.homedir()
+const HOME = os.homedir()
 
 const CMD = `$nu.default-config-dir | path join 'rc.nu'`
-const HOME = execSync(`${NU_PATH} -c "${S}$env.HOME"`).toString().trim()
+// const HOME = execSync(`${NU_PATH} -c "${S}$env.HOME"`).toString().trim()
 const RC_FILE = execSync(`${NU_PATH} -c "${S}${CMD}"`).toString().trim()
 const ENV_PATH = execSync(`${NU_PATH} -c "${S}$nu.env-path"`).toString().trim()
 const CONF_PATH = execSync(`${NU_PATH} -c "${S}$nu.config-path"`).toString().trim()
@@ -54,7 +54,7 @@ let promises1 = []
 let promises2 = []
 let promises3 = []
 for (let f of HOME_FILES) {
-	const url = new URL(f, F_URL).href
+	const url = new URL('HOME/' + f, F_URL).href
 	promises0.push(fetch(url).then((r) => r.text()))
 }
 
