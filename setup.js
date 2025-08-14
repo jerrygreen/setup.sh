@@ -54,7 +54,7 @@ let promises1 = []
 let promises2 = []
 let promises3 = []
 for (let f of HOME_FILES) {
-	const url = new URL('HOME/' + f, F_URL).href
+	const url = new URL('home/' + f, F_URL).href
 	promises0.push(fetch(url).then((r) => r.text()))
 }
 
