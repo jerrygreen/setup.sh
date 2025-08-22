@@ -10,7 +10,7 @@ const NU_PATH = execSync('which nu')
 	.trim()
 	.replace('/cygdrive', '')
 	.replace('/c/', 'C:/')
-const HOME_FILES = ['.bunfig.toml']
+const HOME_FILES = ['.bunfig.toml', '.tmux.conf']
 const CONF_FILES = ['nu/env.nu', 'nu/config.nu']
 // const RC_FILES = ['rc/aliases.nu']
 const RCO_FILES = ['rco/git.sh', 'rco/npm.sh']
