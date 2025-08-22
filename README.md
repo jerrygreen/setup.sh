@@ -15,7 +15,7 @@ But you might find inspiration from here.
 ## Install / Usage
 
 ```bash
-curl -sL https://raw.github.com/jerrygreen/setup.sh/master/setup.js | node
+curl -sL github.com/jerrygreen/setup.sh/raw/HEAD/setup.js | node
 ```
 
 This will create:
